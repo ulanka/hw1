@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		992D5A471C57008900637F53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A461C57008900637F53 /* main.cpp */; };
+		992D5A611C57055B00637F53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A601C57055B00637F53 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,13 @@
 
 /* Begin PBXFileReference section */
 		992D5A431C57008900637F53 /* hw1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hw1; sourceTree = BUILT_PRODUCTS_DIR; };
-		992D5A461C57008900637F53 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		992D5A501C57052200637F53 /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functions.h; sourceTree = "<group>"; };
+		992D5A551C57052200637F53 /* Makefile-2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-2"; sourceTree = "<group>"; };
+		992D5A561C57052200637F53 /* Makefile-3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-3"; sourceTree = "<group>"; };
+		992D5A571C57052200637F53 /* Makefile-4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-4"; sourceTree = "<group>"; };
+		992D5A5A1C57052200637F53 /* session */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = session; sourceTree = "<group>"; };
+		992D5A5B1C57052200637F53 /* usctommy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = usctommy.gif; sourceTree = "<group>"; };
+		992D5A601C57055B00637F53 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +63,13 @@
 		992D5A451C57008900637F53 /* hw1 */ = {
 			isa = PBXGroup;
 			children = (
-				992D5A461C57008900637F53 /* main.cpp */,
+				992D5A501C57052200637F53 /* functions.h */,
+				992D5A601C57055B00637F53 /* main.cpp */,
+				992D5A551C57052200637F53 /* Makefile-2 */,
+				992D5A561C57052200637F53 /* Makefile-3 */,
+				992D5A571C57052200637F53 /* Makefile-4 */,
+				992D5A5A1C57052200637F53 /* session */,
+				992D5A5B1C57052200637F53 /* usctommy.gif */,
 			);
 			path = hw1;
 			sourceTree = "<group>";
@@ -118,7 +130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				992D5A471C57008900637F53 /* main.cpp in Sources */,
+				992D5A611C57055B00637F53 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
