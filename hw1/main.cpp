@@ -9,69 +9,106 @@
 	void logme(const std::string val){
 		std::cout<<val;
 	}
-	
-//	void logmec(char *val){
-//		std::cout<<val;
-//	} 
-    static
-    void Process(istream& in, int argc, char *argv[])
+
+std::istream& safeGetline(std::istream& is, std::string& t)
+{//this function with it
+    //http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
+    t.clear();
+    
+    // The characters in the stream are read one-by-one using a std::streambuf.
+    // That is faster than reading them one-by-one using the std::istream.
+    // Code that uses streambuf this way must be guarded by a sentry object.
+    // The sentry object performs various tasks,
+    // such as thread synchronization and updating the stream state.
+    
+    std::istream::sentry se(is, true);
+    std::streambuf* sb = is.rdbuf();
+    
+    for(;;) {
+        int c = sb->sbumpc();
+        switch (c) {
+            case '\n':
+                return is;
+            case '\r':
+                if(sb->sgetc() == '\n')
+                    sb->sbumpc();
+                return is;
+            case EOF:
+                // Also handle the case when the last line has no line ending
+                if(t.empty())
+                    is.setstate(std::ios::eofbit);
+                return is;
+            default:
+                t += (char)c;
+        }
+    }
+}
+    static void Process(istream& in, int argc, char *argv[])
     {
-	if (argc==2){
-	//logme("I am here argc equal to 2");	
-	//	logme("argv[1]:");
-	//	logme(argv[1]);
-	}        
+//        if (argc==2){
+//      logme("I am here argc equal to 2");
+//		logme("argv[1]:");
+//		logme(argv[1]);
+//	}
+        string buf;
+        //safeGetline(in, buf);
 
-	string buf;
-        getline(in, buf);
-	for (int i=0; i<100;i++){
-		std::printf("%.6x\n",i*16);
-	}
-//std::printf()
-	int line_counter = 0;        
-	while (!in.eof()) {
-		
-		for (int i =0; i<buf.length(); i++){
-		//char ch = 0x10;	
- 		 char ch = buf[i];
-//-----
-//http://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
-	if ((0x20<=ch)&&(ch<=0x7e)){
-		std::cout<<hex<<(int)ch;//previous link only this line
+//        int line_counter = 0;
+        
+        std::printf("%.6x: ",0); //prints 000000
+        string every_line;//  16 symbols
+        while (!safeGetline(in, buf).eof()) {
+            
+            
+//            std::cout<<buf.length()<<endl;
+            
+            for (int i = 0; i<buf.length(); ++i){                //std::cout<<"i="<<i<<" buf[i]="<<buf[i]<<endl;
+                unsigned char ch = buf[i];
+//                std::cout<<hex<<(int)ch;
+                printf("%02x",  (int)(*(unsigned char*)(&ch)) );//http://stackoverflow.com/questions/7496657/when-printing-hex-values-using-x-why-is-ffffff-printed-after-each-value
+                if ((ch>=0x20)&&(ch<=0x7e)){
+                    every_line+=buf[i];
+                    //http://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
+                   // std::printf("%#x\n",ch);//http://en.cppreference.com/w/cpp/io/c/fprintf
 
-		
-std::printf("%#x\n",ch);//http://en.cppreference.com/w/cpp/io/c/fprintf 
-
-	}
-	else
-	{
-	if ((ch<=0x1f)||(ch==0x7f)){
-		std::cout<<".";
-	}
-	else{
-		std::cout<<"~";
-	}
-	}	
-	//std::cout<<hex<< (int)ch;
-//----	
+                }
+                else
+                {
+                    if ((ch<=0x1f)||(ch==0x7f)){
+                        every_line+=".";
+                    }
+                    else{
+                        if (ch>=0x80) {
+                            every_line+="~";
+                        }
+                        
+                    }
+                }
 			
-			if(line_counter<16)
-			{	std::cout<<" ";
-				i++;
-			
-			} else{ 
-				std::cout<<endl;
-//				adsfjklasjflasjlf;jl;asjlfdjlasjlfdjlsajdfljsljfaljfoiwuroquprijfksn,vncxnz.,nv,zxnv,shlfsjfkjhsfk
-				i=0;
+                if(every_line.length()<16)
+                {
+                    std::cout<<" ";
+                    if (every_line.length()==8) {
+                        std::cout<<" ";
+                    }
+                    //i++;
+                }
+                else
+                {
+                    std::cout<<"  "<< every_line<<"\n";
+                    every_line="";
+                    std::printf("%.6x: ",i+1);
 			}
 
-		//	std::cout<<&ch<<endl;
 		} 
-        getline(in, buf);
+       // getline(in, buf);
+            if (every_line.length()<>0){
+                for (ii=every_line.length();ii<16;++ii){
+                    every_line+= ""
+                }
+            }
         }
-	
-
-    }
+	}
  
 
 
