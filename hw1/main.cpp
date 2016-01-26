@@ -47,6 +47,10 @@ std::istream& safeGetline(std::istream& is, std::string& t)
     {
         string buf;
         string every_line;//  16 symbols
+//        int x;
+        //in.read(x, 10);
+        
+        //cout<<"HERE"<<x;
         while (!safeGetline(in, buf).eof()) {
             for (int i = 0; i<buf.length(); ++i){
                 if (i%16==0) {
@@ -138,29 +142,14 @@ std::istream& safeGetline(std::istream& is, std::string& t)
 	if (argc > 2) {
             reading_from_file = true;
         }
-	
         ifstream in;
- 
         if (reading_from_file) {
-            streampos size;
-            char * memblock;
-            //ifstream file ();
-            in.open(argv[2],ios::binary | ios::in);
-            //in=file;
-            if (in.is_open())
-            {
-                size = in.tellg();//change to 1024
-                memblock = new char[size];
-                //file.seekg(0,ios::beg);
-                in.read(memblock,size);
-                //in.close();
-//                inmemblock;
-               // cout<<memblock;
-            }
-            if (in.fail()) {
+                in.open(argv[2],ios::binary | ios::in);
+        if (in.fail()) {
                 cerr << "Cannot open " << argv[2] << " for reading." << endl;
                 return 0;
             }
+            std::cout<<in.rdbuf();
             Process(in, argc, argv);
             in.close();
         } else {
