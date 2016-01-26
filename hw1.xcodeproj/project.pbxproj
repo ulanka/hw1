@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		992D5A611C57055B00637F53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A601C57055B00637F53 /* main.cpp */; };
+		992D5A671C570ABB00637F53 /* factorial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A631C570ABB00637F53 /* factorial.cpp */; };
+		992D5A681C570ABB00637F53 /* hello.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A641C570ABB00637F53 /* hello.cpp */; };
+		992D5A691C570ABB00637F53 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A651C570ABB00637F53 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +34,9 @@
 		992D5A5A1C57052200637F53 /* session */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = session; sourceTree = "<group>"; };
 		992D5A5B1C57052200637F53 /* usctommy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = usctommy.gif; sourceTree = "<group>"; };
 		992D5A601C57055B00637F53 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		992D5A631C570ABB00637F53 /* factorial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factorial.cpp; sourceTree = "<group>"; };
+		992D5A641C570ABB00637F53 /* hello.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cpp; sourceTree = "<group>"; };
+		992D5A651C570ABB00637F53 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,9 @@
 		992D5A451C57008900637F53 /* hw1 */ = {
 			isa = PBXGroup;
 			children = (
+				992D5A631C570ABB00637F53 /* factorial.cpp */,
+				992D5A641C570ABB00637F53 /* hello.cpp */,
+				992D5A651C570ABB00637F53 /* Makefile */,
 				992D5A501C57052200637F53 /* functions.h */,
 				992D5A601C57055B00637F53 /* main.cpp */,
 				992D5A551C57052200637F53 /* Makefile-2 */,
@@ -131,6 +140,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				992D5A611C57055B00637F53 /* main.cpp in Sources */,
+				992D5A681C570ABB00637F53 /* hello.cpp in Sources */,
+				992D5A691C570ABB00637F53 /* Makefile in Sources */,
+				992D5A671C570ABB00637F53 /* factorial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
