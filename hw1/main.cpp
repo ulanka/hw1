@@ -11,8 +11,8 @@
 	}
 
 std::istream& safeGetline(std::istream& is, std::string& t)
-{//this function with it
-    //http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
+{//4
+    
     t.clear();
     
     // The characters in the stream are read one-by-one using a std::streambuf.
@@ -45,31 +45,20 @@ std::istream& safeGetline(std::istream& is, std::string& t)
 }
     static void Process(istream& in, int argc, char *argv[])
     {
-//        if (argc==2){
-//      logme("I am here argc equal to 2");
-//		logme("argv[1]:");
-//		logme(argv[1]);
-//	}
         string buf;
-        //safeGetline(in, buf);
-
-//        int line_counter = 0;
-        
-        std::printf("%.6x: ",0); //prints 000000
         string every_line;//  16 symbols
         while (!safeGetline(in, buf).eof()) {
-            
-            
-//            std::cout<<buf.length()<<endl;
-            
-            for (int i = 0; i<buf.length(); ++i){                //std::cout<<"i="<<i<<" buf[i]="<<buf[i]<<endl;
+            for (int i = 0; i<buf.length(); ++i){
+                if (i%16==0) {
+                    std::printf("%.6x: ",i);
+                }
+                
                 unsigned char ch = buf[i];
 //                std::cout<<hex<<(int)ch;
-                printf("%02x",  (int)(*(unsigned char*)(&ch)) );//http://stackoverflow.com/questions/7496657/when-printing-hex-values-using-x-why-is-ffffff-printed-after-each-value
+                printf("%02x",  (unsigned char)(ch)) ;//1
                 if ((ch>=0x20)&&(ch<=0x7e)){
-                    every_line+=buf[i];
-                    //http://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
-                   // std::printf("%#x\n",ch);//http://en.cppreference.com/w/cpp/io/c/fprintf
+                    every_line+=buf[i]; //2
+                   // std::printf("%#x\n",ch);//3
 
                 }
                 else
@@ -97,19 +86,23 @@ std::istream& safeGetline(std::istream& is, std::string& t)
                 {
                     std::cout<<"  "<< every_line<<"\n";
                     every_line="";
-                    std::printf("%.6x: ",i+1);
+                  //  std::printf("%.6x: ",i+1);
 			}
 
 		} 
        // getline(in, buf);
-            if (every_line.length()<>0){
-                for (ii=every_line.length();ii<16;++ii){
-                    every_line+= ""
-                }
+            
+        }
+        if (every_line.length()!=0){
+            for (long ii = every_line.length();ii<16;++ii){
+                std::cout<<"-- ";
+                every_line+= " ";
+                if (ii==7) std::cout<<" ";
             }
+            std::cout<<" "<<every_line;
         }
 	}
- 
+
 
 
     int main(int argc, char *argv[])
@@ -149,7 +142,21 @@ std::istream& safeGetline(std::istream& is, std::string& t)
         ifstream in;
  
         if (reading_from_file) {
-            in.open(argv[2]);
+            streampos size;
+            char * memblock;
+            //ifstream file ();
+            in.open(argv[2],ios::binary | ios::in);
+            //in=file;
+            if (in.is_open())
+            {
+                size = in.tellg();//change to 1024
+                memblock = new char[size];
+                //file.seekg(0,ios::beg);
+                in.read(memblock,size);
+                //in.close();
+//                inmemblock;
+               // cout<<memblock;
+            }
             if (in.fail()) {
                 cerr << "Cannot open " << argv[2] << " for reading." << endl;
                 return 0;
@@ -161,3 +168,8 @@ std::istream& safeGetline(std::istream& is, std::string& t)
         }
         return 0;
     }
+
+//1 http://stackoverflow.com/questions/7496657/when-printing-hex-values-using-x-why-is-ffffff-printed-after-each-value
+//2 http://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
+//3 http://en.cppreference.com/w/cpp/io/c/fprintf
+//4 //http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
