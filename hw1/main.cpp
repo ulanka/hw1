@@ -9,50 +9,75 @@
 		std::cout<<val;
 	}
 
+static void Processhexdump(istream& in){
+	string every_line;//  16 symbols
+	int i=1;// number of charachter
+	while (!in.eof()) {
+		int c = in.get();//next byte
+		if ((i-1)%16==0) std::printf("%.6x: ",i-1);//prints line number
+		if (c==-1) {
+			break;//prevents writing eof
+		}
+		if ((c>=32)&&(c<=126)){//one of ASCII
+			every_line+= (char)c;
+		}
+		else
+		{
+			if ((c<=31)||(c==127)){//one of not
+				every_line+=".";
+			}
+			else{
+				if (c>=128) {
+					every_line+="~";
+				}
+			}
+		}
+		printf("%02x ", c);//5 hex value
+		if (i%8==0) std::printf(" ");//additional space after 8 hex
+		if (i%16==0) {
+			std::cout<< every_line<<endl;//line of ASCII and unreadable symbols
+			every_line="";//errrase for nextline
+		}
+		i++;//next charachter
+	}
+	//this will work only for last line as it is outside while loop
+	//adds with "-- " if less than 16 symbols in line
+	if (every_line.length()!=0){
+		for (long ii = every_line.length();ii<16;++ii){
+			std::cout<<"-- ";
+			every_line+= " ";
+			if (ii==7) std::cout<<" ";
+		}
+		std::cout<<" "<<every_line;
+	}
+	
+}
+
+static void Processencbase64(istream& in){
+	//abcdefghijklmnopqrstuvwxyz
+	//<<(char)c
+	while (!in.eof()) {
+		int c = in.get();//next byte
+		std::bitset<24> x(c>>(CHAR_BIT-6));//6
+		std::cout<<x<<endl;
+	}
+	
+}
 
     static void Process(istream& in, int argc, char *argv[])
     {
+		std::string argv1 = argv[1];
 		
-        string every_line;//  16 symbols
-		int i=1;// number of charachter
-        while (!in.eof()) {
-				int c = in.get();//next byte
-			if ((i-1)%16==0) std::printf("%.6x: ",i-1);//prints line number
-			if (c==-1) {
-				break;//prevents writing eof
-			}
-			if ((c>=32)&&(c<=126)){//one of ASCII
-				every_line+= (char)c;
-			}
-			else
-			{
-				if ((c<=31)||(c==127)){//one of not
-					every_line+=".";
-				}
-				else{
-					if (c>=128) {
-						every_line+="~";
-					}
-				}
-			}
-	        printf("%02x ", c);//5 hex value
-			if (i%8==0) std::printf(" ");//additional space after 8 hex
-			if (i%16==0) {
-				std::cout<< every_line<<endl;//line of ASCII and unreadable symbols
-				every_line="";//errrase for nextline
-			}
-			i++;//next charachter
-        }
-		//this will work only for last line as it is outside while loop
-		//adds with "-- " if less than 16 symbols in line
-		if (every_line.length()!=0){
-            for (long ii = every_line.length();ii<16;++ii){
-                std::cout<<"-- ";
-                every_line+= " ";
-                if (ii==7) std::cout<<" ";
-            }
-            std::cout<<" "<<every_line;
-        }
+		if ((argv1.compare("hexdump")==0)){
+			Processhexdump(in);
+		}
+		if ((argv1.compare("enc-base64")==0)){
+			Processencbase64(in);
+			
+		}
+		if ((argv1.compare("dec-base64")==0)){
+			Processhexdump(in);
+		}
 		
 	}
 
@@ -102,3 +127,4 @@
 //3 http://en.cppreference.com/w/cpp/io/c/fprintf
 //4 //http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
 //5 http://stackoverflow.com/questions/4533063/how-does-ifstreams-eof-work
+//6 http://stackoverflow.com/questions/2967015/set-a-c-bitset-from-a-binary-input-steam

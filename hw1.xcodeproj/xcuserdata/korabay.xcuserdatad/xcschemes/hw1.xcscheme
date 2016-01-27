@@ -61,15 +61,15 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "hexdump"
+            argument = "enc-base64"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "hexdump"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "yesterday.txt"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "enc-base64"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
