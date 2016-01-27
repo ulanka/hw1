@@ -33,7 +33,7 @@
 		992D5A571C57052200637F53 /* Makefile-4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-4"; sourceTree = "<group>"; };
 		992D5A5A1C57052200637F53 /* session */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = session; sourceTree = "<group>"; };
 		992D5A5B1C57052200637F53 /* usctommy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = usctommy.gif; sourceTree = "<group>"; };
-		992D5A601C57055B00637F53 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		992D5A601C57055B00637F53 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 1; };
 		992D5A631C570ABB00637F53 /* factorial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factorial.cpp; sourceTree = "<group>"; };
 		992D5A641C570ABB00637F53 /* hello.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cpp; sourceTree = "<group>"; };
 		992D5A651C570ABB00637F53 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -259,6 +259,7 @@
 				992D5A4C1C57008900637F53 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

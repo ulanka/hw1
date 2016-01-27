@@ -5,99 +5,47 @@
 #include <cstdio> 
 #include <sstream>
     using namespace std;
-
 	void logme(const std::string val){
 		std::cout<<val;
 	}
 
-std::istream& safeGetline(std::istream& is, std::string& t)
-{//4
-    
-    t.clear();
-    
-    // The characters in the stream are read one-by-one using a std::streambuf.
-    // That is faster than reading them one-by-one using the std::istream.
-    // Code that uses streambuf this way must be guarded by a sentry object.
-    // The sentry object performs various tasks,
-    // such as thread synchronization and updating the stream state.
-    
-    std::istream::sentry se(is, true);
-    std::streambuf* sb = is.rdbuf();
-    
-    for(;;) {
-        int c = sb->sbumpc();
-        switch (c) {
-            case '\n':
-                return is;
-            case '\r':
-                if(sb->sgetc() == '\n')
-                    sb->sbumpc();
-                return is;
-            case EOF:
-                // Also handle the case when the last line has no line ending
-                if(t.empty())
-                    is.setstate(std::ios::eofbit);
-                return is;
-            default:
-                t += (char)c;
-        }
-    }
-}
+
     static void Process(istream& in, int argc, char *argv[])
     {
-        string buf;
+		
         string every_line;//  16 symbols
-//        int x;
-        //in.read(x, 10);
-        
-        //cout<<"HERE"<<x;
-        while (!safeGetline(in, buf).eof()) {
-            for (int i = 0; i<buf.length(); ++i){
-                if (i%16==0) {
-                    std::printf("%.6x: ",i);
-                }
-                
-                unsigned char ch = buf[i];
-//                std::cout<<hex<<(int)ch;
-                printf("%02x",  (unsigned char)(ch)) ;//1
-                if ((ch>=0x20)&&(ch<=0x7e)){
-                    every_line+=buf[i]; //2
-                   // std::printf("%#x\n",ch);//3
-
-                }
-                else
-                {
-                    if ((ch<=0x1f)||(ch==0x7f)){
-                        every_line+=".";
-                    }
-                    else{
-                        if (ch>=0x80) {
-                            every_line+="~";
-                        }
-                        
-                    }
-                }
-			
-                if(every_line.length()<16)
-                {
-                    std::cout<<" ";
-                    if (every_line.length()==8) {
-                        std::cout<<" ";
-                    }
-                    //i++;
-                }
-                else
-                {
-                    std::cout<<"  "<< every_line<<"\n";
-                    every_line="";
-                  //  std::printf("%.6x: ",i+1);
+		int i=1;// number of charachter
+        while (!in.eof()) {
+				int c = in.get();//next byte
+			if ((i-1)%16==0) std::printf("%.6x: ",i-1);//prints line number
+			if (c==-1) {
+				break;//prevents writing eof
 			}
-
-		} 
-       // getline(in, buf);
-            
+			if ((c>=32)&&(c<=126)){//one of ASCII
+				every_line+= (char)c;
+			}
+			else
+			{
+				if ((c<=31)||(c==127)){//one of not
+					every_line+=".";
+				}
+				else{
+					if (c>=128) {
+						every_line+="~";
+					}
+				}
+			}
+	        printf("%02x ", c);//5 hex value
+			if (i%8==0) std::printf(" ");//additional space after 8 hex
+			if (i%16==0) {
+				std::cout<< every_line<<endl;//line of ASCII and unreadable symbols
+				every_line="";//errrase for nextline
+			}
+			i++;//next charachter
         }
-        if (every_line.length()!=0){
+		//this will work only for last line as it is outside while loop
+		//adds with "-- " if less than 16 symbols in line
+		if (every_line.length()!=0){
             for (long ii = every_line.length();ii<16;++ii){
                 std::cout<<"-- ";
                 every_line+= " ";
@@ -105,24 +53,15 @@ std::istream& safeGetline(std::istream& is, std::string& t)
             }
             std::cout<<" "<<every_line;
         }
+		
 	}
 
 
 
     int main(int argc, char *argv[])
     {
-    //print_hello();
-    //std::cout << std::endl;
-    //std::cout << "The factorial of 5 is " << factorial(5) << std::endl;
-        bool reading_from_file=false;
-//	std::cout << argc<<endl;
-//	std::cout << argv[0]<<endl;
-//	std::cout << argv[1]<<endl;
-
-	//for (int i=0; i<10;i++){
-	//	std::cout << "here:"<< argv[i]<<endl;
-	//}
-	// Checking if the user choose mode 
+         bool reading_from_file=false;
+	// Checking if the user choose mode
         if (argc == 1){
 	    fprintf(stderr,  "Error: You have to enter hexdump, enc-base64, or dec-base64 as the first argument\n");
 	    return 0;
@@ -143,17 +82,17 @@ std::istream& safeGetline(std::istream& is, std::string& t)
             reading_from_file = true;
         }
         ifstream in;
-        if (reading_from_file) {
+         if (reading_from_file) {
                 in.open(argv[2],ios::binary | ios::in);
+            
         if (in.fail()) {
                 cerr << "Cannot open " << argv[2] << " for reading." << endl;
                 return 0;
             }
-            std::cout<<in.rdbuf();
             Process(in, argc, argv);
             in.close();
         } else {
-            Process(cin, argc, argv);
+           Process(cin, argc, argv);
         }
         return 0;
     }
@@ -162,3 +101,4 @@ std::istream& safeGetline(std::istream& is, std::string& t)
 //2 http://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
 //3 http://en.cppreference.com/w/cpp/io/c/fprintf
 //4 //http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
+//5 http://stackoverflow.com/questions/4533063/how-does-ifstreams-eof-work
