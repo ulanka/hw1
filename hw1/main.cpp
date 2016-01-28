@@ -15,7 +15,10 @@ string Get3for4(string s){
 	std::bitset<24> rbs;//bitset for 3
 	int ri=0;
 	for (int ii=0;ii<4;ii++){
-		std::bitset<8> bs(s[ii]);
+		
+		std::bitset<8> bs(s[ii]);//take one
+		
+		std::cout<<"s="<<s[ii]<<" bs="<<bs.to_ulong()<<endl;
 		
 		
 		for (int j=0; j<8; j++) {
@@ -28,12 +31,39 @@ string Get3for4(string s){
 		
 		
 	}
-	for (int ii=1; ii<4; ii++) {
+	int mui=7;
+	for (int ii=1; ii<5; ii++) {
 		std::bitset<8> tbs;
 		for (int jj=0; jj<8; jj++) {//read next resulting char
 			
-			tbs[7-jj]=rbs[ii*jj];
+			tbs[mui]=rbs[ii*jj];
+			mui--;
+			if (mui==0){
+				int myc = (int)tbs.to_ulong();
+				std::cout<<"tbs["<<ii<<"]="<<char(tbs.to_ulong())<<endl;
+				if (myc>=65&&myc<=90)
+					myc-=65;
+				else
+					if (myc>=97&&myc<=122)
+						myc-=97;
+					else
+						if (myc>=48&&myc<=57)
+							myc-=48;
+						else
+							if (myc==43)
+								myc=62;
+							else
+								if (myc==47) myc=63;
+				std::cout<<myc<<endl;
+				mui=7;
+			}
 		}
+		//convert here from to original
+		//std::cout<<"ii="<<ii<<" "<<s[ii]<<endl;
+		
+		//int tbsi =tbs.to_ulong();
+		//if (tbci)
+		std::cout<<tbs.to_ulong()<<" "<<char(tbs.to_ulong())<<endl;
 		res+= char(tbs.to_ulong());
 	}
 	
@@ -51,32 +81,57 @@ static void Processdecbase64(istream& in){
 		if (nextline.length()==64){
 			
 			for (int i=0; i<64; ++i) {
-				if ((i+1)%4!=0){//form 4 chars string
+				
 					int c =(int)nextline[i];
-					if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47){//if char is legal
+				
+					if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47||(char)c=='='){//if char is legal
 						s+=nextline[i];//take first 4 chars
+						if ((i+1)%4==0){//form 4 chars string
+							if (s[2]!='='&&s[3]!='=') {
+								result+=Get3for4(s);//send to make dec
+							}
+							else{
+								if (s[2]!='='&&s[3]=='='){result+=Get3for4(s)[0]+Get3for4(s)[1];}
+								else{if(s[2]=='='&&s[3]=='=')result+=Get3for4(s)[0];
+								}
+							}
+							s="";
+						}
 					}
-				}
-				else{//when 4 chars string is ready
-					result+=Get3for4(s);//send to make dec
-					s="";
-				}
+					else{
+						erro=1;
+						std::cerr<<"Error:Corrupted input";
+					}
+				
 			}
 			
 		}
 		else{
 			if (nextline.length()%4==0) {//this is for last line
 				for (int i=0; i<nextline.length(); ++i) {//not 64 chars
-					if ((i+1)%4!=0){//form 4 chars string
-						int c =(int)nextline[i];
-						if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47){//if char is legal
-							s+=nextline[i];//take first 4 chars
+					int c =(int)nextline[i];
+					std::cout<<"c="<<(char)c;
+					if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47||(char)c=='='){//if char is legal
+						s+=nextline[i];//take first 4 chars
+						if ((i+1)%4==0){//form 4 chars string
+							if (s[2]!='='&&s[3]!='=') {
+								result+=Get3for4(s);//send to make dec
+							}
+							else{
+								if (s[2]!='='&&s[3]=='='){result+=Get3for4(s)[0]+Get3for4(s)[1];}
+								else{if(s[2]=='='&&s[3]=='=')result+=Get3for4(s)[0];
+									}
+							}
+							//send to make dec
+							s="";
 						}
 					}
-					else{//when 4 chars string is ready
-						result+=Get3for4(s);//send to make dec
-						s="";
+					else{
+					
+						erro=1;
+						std::cerr<<"Error:Corrupted input";
 					}
+					
 				}
 			}
 			else{
