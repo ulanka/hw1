@@ -10,14 +10,90 @@
 		std::cout<<val;
 	}
 
-static void Processdecbase64(istream& in){
-	char nextline[64];
-	while (!in.eof()) {
-		in.getline(nextline, 64);
-		for (int i=0; i<64; ++i) {
-			std::cout<<nextline[i];
+string Get3for4(string s){
+	string res="";//resulting string to return
+	std::bitset<24> rbs;//bitset for 3
+	int ri=0;
+	for (int ii=0;ii<4;ii++){
+		std::bitset<8> bs(s[ii]);
+		
+		
+		for (int j=0; j<8; j++) {
+			if ((7-j)!=7||(7-j)!=6) {//add all bits to rbs except first 2 bits in each char
+				rbs[ri]=bs[7-j];
+				ri++;
+			}
+			
 		}
+		
+		
 	}
+	for (int ii=1; ii<4; ii++) {
+		std::bitset<8> tbs;
+		for (int jj=0; jj<8; jj++) {//read next resulting char
+			
+			tbs[7-jj]=rbs[ii*jj];
+		}
+		res+= char(tbs.to_ulong());
+	}
+	
+	return res;
+}
+
+static void Processdecbase64(istream& in){
+	string nextline;
+	string result;
+	int erro=0;
+	while (!in.eof()) {
+		getline(in, nextline);
+		//std::cout<<nextline<<endl;
+		string s;
+		if (nextline.length()==64){
+			
+			for (int i=0; i<64; ++i) {
+				if ((i+1)%4!=0){//form 4 chars string
+					int c =(int)nextline[i];
+					if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47){//if char is legal
+						s+=nextline[i];//take first 4 chars
+					}
+				}
+				else{//when 4 chars string is ready
+					result+=Get3for4(s);//send to make dec
+					s="";
+				}
+			}
+			
+		}
+		else{
+			if (nextline.length()%4==0) {//this is for last line
+				for (int i=0; i<nextline.length(); ++i) {//not 64 chars
+					if ((i+1)%4!=0){//form 4 chars string
+						int c =(int)nextline[i];
+						if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47){//if char is legal
+							s+=nextline[i];//take first 4 chars
+						}
+					}
+					else{//when 4 chars string is ready
+						result+=Get3for4(s);//send to make dec
+						s="";
+					}
+				}
+			}
+			else{
+				erro=1;
+				std::cerr<<"Error:Corrupted input";
+			}
+			//nextline
+		}
+		
+		//for (int i=0; i<64; ++i) {
+		//	std::cout<<nextline[i];
+		//}
+	}
+	if (erro!=1) {
+	std::cout<<result<<endl;
+	}
+	
 }
 
 static void Processencbase64(istream& in){

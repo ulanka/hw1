@@ -65,8 +65,12 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "dtest2"
+            argument = "enced"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "dtest2"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "enc-base64"
