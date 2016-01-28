@@ -4,10 +4,136 @@
 #include <string>
 #include <cstdio> 
 #include <sstream>
+#include <bitset>
     using namespace std;
 	void logme(const std::string val){
 		std::cout<<val;
 	}
+
+
+static void Processencbase64(istream& in){
+	//abcdefghijklmnopqrstuvwxyz
+	//<<(char)c
+	int i=0;
+	int i0 = 0;//for 1-8
+	int i1 = 0;//for 9-16
+	int i2 = 0;//for 17-24
+	int n1=0, n2=0;//need 1 or 2
+	std::bitset<8> x;//(c>>(8-8))
+	std::bitset<8> x1;//(c>>(8-8))
+	std::bitset<8> x2;//(c>>(8-8))
+	std::bitset<8> r1;
+	std::bitset<8> r2;
+	std::bitset<8> r3;
+	std::bitset<8> r4;
+	while (!in.eof()) {
+		
+		int c = in.get();//next byte
+		if (c==-1) {// if not enough bit to 24
+			if (i==1) {//need 2 more bytes(16bits)
+				n2=1;//add 2
+				i=3;
+			}
+			if (i==2) {//need 1 more byte
+				n2=1;
+				i=3;
+			}
+		}
+
+		
+		switch (i){
+			case 0:{
+				i0=c;
+				std::bitset<8> xf(c);
+				x=xf;
+				std::cout<<"i0:"<<i0;
+				i++;
+				break;
+			}
+			case 1:{
+				i1=c;
+				std::bitset<8> xf(c);
+				x1=xf;
+				std::cout<<"i1:"<<i1;
+				i++;
+				break;
+			}
+			case 2:{
+				i2=c;
+				std::bitset<8> xf(c);
+				x2=xf;
+				std::cout<<"i2:"<<i2;
+				i++;
+				break;
+				
+			}
+			
+		}
+		if (i==3){
+			if (n2==1) {x1.set();x2.set();}
+			if (n1==1) x2.set();
+			r1.set(7,0);
+			r1.set(6,0);
+			r2.set(7,0);
+			r2.set(6,0);
+			r3.set(7,0);
+			r3.set(6,0);
+			r4.set(7,0);
+			r4.set(6,0);
+			//std::cout<<"x:"<<x<<endl;
+			//for (int mi=3;mi<9;mi++) r1.set(8-mi,x.test(8-mi+2));
+			r1.set(5,x.test(7));
+			r1.set(4,x.test(6));
+			r1.set(3,x.test(5));
+			r1.set(2,x.test(4));
+			r1.set(1,x.test(3));
+			r1.set(0,x.test(2));
+			
+			r2.set(5,x.test(1));
+			r2.set(4,x.test(0));
+			r2.set(3,x1.test(7));
+			r2.set(2,x1.test(6));
+			r2.set(1,x1.test(5));
+			r2.set(0,x1.test(4));
+			
+			r3.set(5,x1.test(3));
+			r3.set(4,x1.test(2));
+			r3.set(3,x1.test(1));
+			r3.set(2,x1.test(0));
+			r3.set(1,x2.test(7));
+			r3.set(0,x2.test(6));
+			
+			r4.set(5,x2.test(5));
+			r4.set(4,x2.test(4));
+			r4.set(3,x2.test(3));
+			r4.set(2,x2.test(2));
+			r4.set(1,x2.test(1));
+			r4.set(0,x2.test(0));
+			std::cout<<"xs:"<<char(x.to_ullong())<<char(x1.to_ullong())<<char(x2.to_ullong())<<endl;
+			std::cout<<"rs:"<<char(r1.to_ullong())<<char(r2.to_ullong())<<char(r3.to_ullong())<<char(r4.to_ullong())<<endl;
+			
+		}
+		
+		//std::bitset<6> x2(c>>(8+2));
+		//for (size_t ii=0;ii<x.size();++i)
+			//std::cout<<(char)c<<" "<<x.test(0)<<x.test(1)<<x.test(2)<<x.test(3)<<x.test(4)<<x.test(5)<<x.test(6)<<x.test(7)<<endl;
+		std::cout<<char(x.to_ullong())<<endl;
+		//std::bitset<6> x(c>>(8-6));//6 //CHAR_BIT=8
+		
+		/*
+		 for (int iii=0;iii<128;iii++)
+		{
+			bitset<8> mmx(iii>>(8-8));
+			if (mmx.test(7)==0&&mmx.test(6))
+				std::cout<<iii<<char(mmx.to_ullong())<<endl;
+		}
+		 */
+		
+	}
+	
+	
+}
+
 
 static void Processhexdump(istream& in){
 	string every_line;//  16 symbols
@@ -53,16 +179,7 @@ static void Processhexdump(istream& in){
 	
 }
 
-static void Processencbase64(istream& in){
-	//abcdefghijklmnopqrstuvwxyz
-	//<<(char)c
-	while (!in.eof()) {
-		int c = in.get();//next byte
-		std::bitset<24> x(c>>(CHAR_BIT-6));//6
-		std::cout<<x<<endl;
-	}
-	
-}
+
 
     static void Process(istream& in, int argc, char *argv[])
     {
