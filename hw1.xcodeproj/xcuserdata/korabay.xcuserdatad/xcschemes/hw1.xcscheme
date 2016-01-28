@@ -61,8 +61,20 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "enc-base64"
+            argument = "dec-base64"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "dtest2"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "enc-base64"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "usctommy.gif"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "hexdump"
@@ -70,10 +82,6 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "yesterday.txt"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "usctommy.gif"
             isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>

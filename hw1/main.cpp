@@ -10,15 +10,22 @@
 		std::cout<<val;
 	}
 
+static void Processdecbase64(istream& in){
+	char nextline[64];
+	while (!in.eof()) {
+		in.getline(nextline, 64);
+		for (int i=0; i<64; ++i) {
+			std::cout<<nextline[i];
+		}
+	}
+}
 
 static void Processencbase64(istream& in){
 	//abcdefghijklmnopqrstuvwxyz
 	//<<(char)c
 	std::bitset<8> xx;
 	int i=0;
-	//int i0 = 0;//for 1-8
-	//int i1 = 0;//for 9-16
-	//int i2 = 0;//for 17-24
+	int fin=0;
 	int n1=0, n2=0;//need 1 or 2
 	std::bitset<8> x;//(c>>(8-8))
 	std::bitset<8> x1;//(c>>(8-8))
@@ -30,8 +37,10 @@ static void Processencbase64(istream& in){
 	int ri1, ri2,ri3,ri4;
 	//in.ignore('\n');
 	//std::string
+	int chline=0;
 	while (!in.eof()) {
 		int c = in.get();
+		
 	//while (c!=-1) {
 		//if (c==10) {
 		//	c='\n';
@@ -44,14 +53,16 @@ static void Processencbase64(istream& in){
 			if (i==1) {//need 2 more bytes(16bits)
 				n2=1;//add 2
 				i=3;
+				//n1=0;
 			}
 			if (i==2) {//need 1 more byte
-				n2=1;
+				n1=1;
 				i=3;
+				
 			}
 			//break;
 		}
-
+//cwoJ aWYgKGFyZ2 MgPT0gMil7 CgkJc3RkOj pzdHJpbmcg YXJndjEgPS Bhcmd2WzFd
 		
 		switch (i){
 			case 0:{
@@ -161,18 +172,22 @@ static void Processencbase64(istream& in){
 			std::cout<<(char)ri1<<(char)ri2;
 			if (n1==1) {
 				std::cout<<(char)ri3<<"=";//<<endl;
+				fin=1;
 				break;
 			}
 			else{
 				if (n2==1) {
 					std::cout<<"==";//<<endl;
+					fin=1;
 					break;
 				}
 				else{
 					std::cout<<(char)ri3<<(char)ri4;
 					//if (c==-1)std::cout<<endl;
+					fin=1;
 				}
 			}
+			chline+=4;
 			x=xx;x1=xx;x2=xx;r1=xx;r2=xx;r3=xx;r4=xx;n1=0;n2=0;i=0;
 		}
 		
@@ -184,9 +199,12 @@ static void Processencbase64(istream& in){
 				std::cout<<iii<<char(mmx.to_ullong())<<endl;
 		}
 		 */
-		
+		if (chline==64) {
+			std::cout<<endl;
+			chline=0;
+		}
 	}
-	
+	if(fin==1)
 std::cout<<endl;
 	
 }
@@ -250,7 +268,7 @@ static void Processhexdump(istream& in){
 			
 		}
 		if ((argv1.compare("dec-base64")==0)){
-			Processhexdump(in);
+			Processdecbase64(in);
 		}
 		
 	}
