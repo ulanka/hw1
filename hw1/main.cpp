@@ -90,7 +90,7 @@ static void Processencbase64(istream& in){
 			}
 			if (n1==1){
 				for (int ni=0; ni<8; ni++)
-				x2.set(ni,0);
+				x2[ni]=0;
 			}
 			r1.set(7,0);
 			r1.set(6,0);
@@ -129,10 +129,10 @@ static void Processencbase64(istream& in){
 			r4.set(2,x2.test(2));
 			r4.set(1,x2.test(1));
 			r4.set(0,x2.test(0));
-			ri1=(int)r1.to_ullong();
-			ri2=(int)r2.to_ullong();
-			ri3=(int)r3.to_ullong();
-			ri4=(int)r4.to_ullong();
+			ri1=(int)r1.to_ulong();
+			ri2=(int)r2.to_ulong();
+			ri3=(int)r3.to_ulong();
+			ri4=(int)r4.to_ulong();
 			if (ri1>=0  && ri1<=25) ri1+=65;
 			if (ri1>=26 && ri1<=51) ri1+=71;
 			if (ri1>=52 && ri1<61) ri1-=4;
@@ -160,17 +160,17 @@ static void Processencbase64(istream& in){
 			
 			std::cout<<(char)ri1<<(char)ri2;
 			if (n1==1) {
-				std::cout<<(char)ri3<<"="<<endl;
+				std::cout<<(char)ri3<<"=";//<<endl;
 				break;
 			}
 			else{
 				if (n2==1) {
-					std::cout<<"=="<<endl;
+					std::cout<<"==";//<<endl;
 					break;
 				}
 				else{
 					std::cout<<(char)ri3<<(char)ri4;
-					if (c==-1)std::cout<<endl;
+					//if (c==-1)std::cout<<endl;
 				}
 			}
 			x=xx;x1=xx;x2=xx;r1=xx;r2=xx;r3=xx;r4=xx;n1=0;n2=0;i=0;
@@ -187,7 +187,7 @@ static void Processencbase64(istream& in){
 		
 	}
 	
-
+std::cout<<endl;
 	
 }
 
