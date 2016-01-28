@@ -38,6 +38,7 @@
 		992D5A641C570ABB00637F53 /* hello.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cpp; sourceTree = "<group>"; };
 		992D5A651C570ABB00637F53 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		995864171C58A1CA000B8F70 /* deleteme later */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "deleteme later"; sourceTree = "<group>"; };
+		99ECBFD01C5AB8B200235BEE /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +77,7 @@
 				992D5A501C57052200637F53 /* functions.h */,
 				992D5A601C57055B00637F53 /* main.cpp */,
 				995864171C58A1CA000B8F70 /* deleteme later */,
+				99ECBFD01C5AB8B200235BEE /* File */,
 				992D5A551C57052200637F53 /* Makefile-2 */,
 				992D5A561C57052200637F53 /* Makefile-3 */,
 				992D5A571C57052200637F53 /* Makefile-4 */,
