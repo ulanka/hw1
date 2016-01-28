@@ -14,10 +14,11 @@
 static void Processencbase64(istream& in){
 	//abcdefghijklmnopqrstuvwxyz
 	//<<(char)c
+	std::bitset<8> xx;
 	int i=0;
-	int i0 = 0;//for 1-8
-	int i1 = 0;//for 9-16
-	int i2 = 0;//for 17-24
+	//int i0 = 0;//for 1-8
+	//int i1 = 0;//for 9-16
+	//int i2 = 0;//for 17-24
 	int n1=0, n2=0;//need 1 or 2
 	std::bitset<8> x;//(c>>(8-8))
 	std::bitset<8> x1;//(c>>(8-8))
@@ -26,9 +27,19 @@ static void Processencbase64(istream& in){
 	std::bitset<8> r2;
 	std::bitset<8> r3;
 	std::bitset<8> r4;
+	int ri1, ri2,ri3,ri4;
+	//in.ignore('\n');
+	//std::string
 	while (!in.eof()) {
-		
-		int c = in.get();//next byte
+		int c = in.get();
+	//while (c!=-1) {
+		//if (c==10) {
+		//	c='\n';
+		//}
+		//r1[1]=0;
+		//
+		//std::cout<<c;
+		//next byte
 		if (c==-1) {// if not enough bit to 24
 			if (i==1) {//need 2 more bytes(16bits)
 				n2=1;//add 2
@@ -38,31 +49,32 @@ static void Processencbase64(istream& in){
 				n2=1;
 				i=3;
 			}
+			//break;
 		}
 
 		
 		switch (i){
 			case 0:{
-				i0=c;
+				//i0=c;
 				std::bitset<8> xf(c);
 				x=xf;
-				std::cout<<"i0:"<<i0;
+				//std::cout<<"i0:"<<i0;
 				i++;
 				break;
 			}
 			case 1:{
-				i1=c;
+				//i1=c;
 				std::bitset<8> xf(c);
 				x1=xf;
-				std::cout<<"i1:"<<i1;
+				//std::cout<<"i1:"<<i1;
 				i++;
 				break;
 			}
 			case 2:{
-				i2=c;
+				//i2=c;
 				std::bitset<8> xf(c);
 				x2=xf;
-				std::cout<<"i2:"<<i2;
+				//std::cout<<"i2:"<<i2;
 				i++;
 				break;
 				
@@ -70,8 +82,16 @@ static void Processencbase64(istream& in){
 			
 		}
 		if (i==3){
-			if (n2==1) {x1.set();x2.set();}
-			if (n1==1) x2.set();
+			if (n2==1) {
+				for (int ni=0; ni<8; ni++) {
+					x1.set(ni, 0);x2.set(ni,0);
+				}
+				
+			}
+			if (n1==1){
+				for (int ni=0; ni<8; ni++)
+				x2.set(ni,0);
+			}
 			r1.set(7,0);
 			r1.set(6,0);
 			r2.set(7,0);
@@ -109,16 +129,52 @@ static void Processencbase64(istream& in){
 			r4.set(2,x2.test(2));
 			r4.set(1,x2.test(1));
 			r4.set(0,x2.test(0));
-			std::cout<<"xs:"<<char(x.to_ullong())<<char(x1.to_ullong())<<char(x2.to_ullong())<<endl;
-			std::cout<<"rs:"<<char(r1.to_ullong())<<char(r2.to_ullong())<<char(r3.to_ullong())<<char(r4.to_ullong())<<endl;
+			ri1=(int)r1.to_ullong();
+			ri2=(int)r2.to_ullong();
+			ri3=(int)r3.to_ullong();
+			ri4=(int)r4.to_ullong();
+			if (ri1>=0  && ri1<=25) ri1+=65;
+			if (ri1>=26 && ri1<=51) ri1+=71;
+			if (ri1>=52 && ri1<61) ri1-=4;
+			if (ri1==62) ri1=43;
+			if (ri1==63) ri1=47;
 			
+			if (ri2>=0  && ri2<=25) ri2+=65;
+			if (ri2>=26 && ri2<=51) ri2+=71;
+			if (ri2>=52 && ri2<61) ri2-=4;
+			if (ri2==62) ri2=43;
+			if (ri2==63) ri2=47;
+			
+			if (ri3>=0  && ri3<=25) ri3+=65;
+			if (ri3>=26 && ri3<=51) ri3+=71;
+			if (ri3>=52 && ri3<=61) ri3-=4;
+			if (ri3==62) ri3=43;
+			if (ri3==63) ri3=47;
+			
+			if (ri4>=0  && ri4<=25) ri4+=65;
+			if (ri4>=26 && ri4<=51) ri4+=71;
+			if (ri4>=52 && ri4<=61) ri4-=4;
+			if (ri4==62) ri4=43;
+			if (ri4==63) ri4=47;
+			//std::cout<<"xs:"<<char(x.to_ullong())<<char(x1.to_ullong())<<char(x2.to_ullong())<<endl;
+			
+			std::cout<<(char)ri1<<(char)ri2;
+			if (n1==1) {
+				std::cout<<(char)ri3<<"="<<endl;
+				break;
+			}
+			else{
+				if (n2==1) {
+					std::cout<<"=="<<endl;
+					break;
+				}
+				else{
+					std::cout<<(char)ri3<<(char)ri4;
+					if (c==-1)std::cout<<endl;
+				}
+			}
+			x=xx;x1=xx;x2=xx;r1=xx;r2=xx;r3=xx;r4=xx;n1=0;n2=0;i=0;
 		}
-		
-		//std::bitset<6> x2(c>>(8+2));
-		//for (size_t ii=0;ii<x.size();++i)
-			//std::cout<<(char)c<<" "<<x.test(0)<<x.test(1)<<x.test(2)<<x.test(3)<<x.test(4)<<x.test(5)<<x.test(6)<<x.test(7)<<endl;
-		std::cout<<char(x.to_ullong())<<endl;
-		//std::bitset<6> x(c>>(8-6));//6 //CHAR_BIT=8
 		
 		/*
 		 for (int iii=0;iii<128;iii++)
@@ -131,6 +187,7 @@ static void Processencbase64(istream& in){
 		
 	}
 	
+
 	
 }
 
