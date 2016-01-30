@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		992D5A611C57055B00637F53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A601C57055B00637F53 /* main.cpp */; };
-		992D5A671C570ABB00637F53 /* factorial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A631C570ABB00637F53 /* factorial.cpp */; };
 		992D5A681C570ABB00637F53 /* hello.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A641C570ABB00637F53 /* hello.cpp */; };
 		992D5A691C570ABB00637F53 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 992D5A651C570ABB00637F53 /* Makefile */; };
+		994F029B1C5C608000509B64 /* hexdump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 994F02991C5C608000509B64 /* hexdump.cpp */; };
+		994F029D1C5C6DE100509B64 /* encbase64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 994F029C1C5C6DE100509B64 /* encbase64.cpp */; };
+		994F029F1C5C708500509B64 /* decbase64.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 994F029E1C5C708500509B64 /* decbase64.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,16 +29,22 @@
 
 /* Begin PBXFileReference section */
 		992D5A431C57008900637F53 /* hw1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hw1; sourceTree = BUILT_PRODUCTS_DIR; };
-		992D5A501C57052200637F53 /* functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functions.h; sourceTree = "<group>"; };
 		992D5A551C57052200637F53 /* Makefile-2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-2"; sourceTree = "<group>"; };
 		992D5A561C57052200637F53 /* Makefile-3 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-3"; sourceTree = "<group>"; };
 		992D5A571C57052200637F53 /* Makefile-4 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Makefile-4"; sourceTree = "<group>"; };
 		992D5A5A1C57052200637F53 /* session */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = session; sourceTree = "<group>"; };
 		992D5A5B1C57052200637F53 /* usctommy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = usctommy.gif; sourceTree = "<group>"; };
 		992D5A601C57055B00637F53 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; usesTabs = 1; };
-		992D5A631C570ABB00637F53 /* factorial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factorial.cpp; sourceTree = "<group>"; };
 		992D5A641C570ABB00637F53 /* hello.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hello.cpp; sourceTree = "<group>"; };
-		992D5A651C570ABB00637F53 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		992D5A651C570ABB00637F53 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
+		994F02931C5C367500509B64 /* hextesthw1script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = hextesthw1script.sh; sourceTree = "<group>"; };
+		994F02941C5C36EB00509B64 /* encbase64testhw1script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = encbase64testhw1script.sh; sourceTree = "<group>"; };
+		994F02951C5C372800509B64 /* decbase64testhw1script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = decbase64testhw1script.sh; sourceTree = "<group>"; };
+		994F02961C5C375100509B64 /* encdecbase64testhw1script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = encdecbase64testhw1script.sh; sourceTree = "<group>"; };
+		994F02991C5C608000509B64 /* hexdump.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hexdump.cpp; sourceTree = "<group>"; };
+		994F029A1C5C608000509B64 /* dd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dd.h; sourceTree = "<group>"; };
+		994F029C1C5C6DE100509B64 /* encbase64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encbase64.cpp; sourceTree = "<group>"; };
+		994F029E1C5C708500509B64 /* decbase64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decbase64.cpp; sourceTree = "<group>"; };
 		995864171C58A1CA000B8F70 /* deleteme later */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "deleteme later"; sourceTree = "<group>"; };
 		99ECBFD01C5AB8B200235BEE /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,14 +79,20 @@
 		992D5A451C57008900637F53 /* hw1 */ = {
 			isa = PBXGroup;
 			children = (
-				992D5A631C570ABB00637F53 /* factorial.cpp */,
 				992D5A641C570ABB00637F53 /* hello.cpp */,
 				992D5A651C570ABB00637F53 /* Makefile */,
-				992D5A501C57052200637F53 /* functions.h */,
+				994F02991C5C608000509B64 /* hexdump.cpp */,
+				994F029E1C5C708500509B64 /* decbase64.cpp */,
+				994F029A1C5C608000509B64 /* dd.h */,
 				992D5A601C57055B00637F53 /* main.cpp */,
+				994F029C1C5C6DE100509B64 /* encbase64.cpp */,
 				995864171C58A1CA000B8F70 /* deleteme later */,
 				99ECBFD01C5AB8B200235BEE /* File */,
+				994F02931C5C367500509B64 /* hextesthw1script.sh */,
+				994F02941C5C36EB00509B64 /* encbase64testhw1script.sh */,
 				992D5A551C57052200637F53 /* Makefile-2 */,
+				994F02951C5C372800509B64 /* decbase64testhw1script.sh */,
+				994F02961C5C375100509B64 /* encdecbase64testhw1script.sh */,
 				992D5A561C57052200637F53 /* Makefile-3 */,
 				992D5A571C57052200637F53 /* Makefile-4 */,
 				992D5A5A1C57052200637F53 /* session */,
@@ -143,10 +157,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994F029B1C5C608000509B64 /* hexdump.cpp in Sources */,
+				994F029F1C5C708500509B64 /* decbase64.cpp in Sources */,
+				994F029D1C5C6DE100509B64 /* encbase64.cpp in Sources */,
 				992D5A611C57055B00637F53 /* main.cpp in Sources */,
 				992D5A681C570ABB00637F53 /* hello.cpp in Sources */,
 				992D5A691C570ABB00637F53 /* Makefile in Sources */,
-				992D5A671C570ABB00637F53 /* factorial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
