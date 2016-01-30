@@ -70,6 +70,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "tada3"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "f6.b64"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

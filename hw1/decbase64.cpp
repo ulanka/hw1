@@ -13,6 +13,7 @@
 std::vector<BYTE> Get3for4(std::string s){
     std::vector<BYTE> res;//resulting string to return
     std::bitset<24> rbs;//bitset for 3
+    int pn=3;//number ofchars to print
     BYTE rarr;
     //std::ofstream str;
     ///str.open(ios::binary);
@@ -35,10 +36,7 @@ std::vector<BYTE> Get3for4(std::string s){
                         if (myc==47) myc=63;
         std::bitset<8> bs(myc);
         //take one num
-        if ((int)s[ii]==(int)'=') {
-            
-            //std::cout<<"="<<myc<<bs.to;
-        }
+
         
         for (int j=0; j<8; j++) {//cut 00
             if ((7-j)!=7&&(7-j)!=6) {//add all bits to rbs except first 2 bits in each char
@@ -46,11 +44,13 @@ std::vector<BYTE> Get3for4(std::string s){
                 ri++;
             }
         }
-        if (s[3]=='=') {
-            for (int zi=8;zi<24;zi++)rbs.set(zi,0);
+        if ((s[3]=='=')&&s[2]!='=') {
+            //for (int zi=8;zi<24;zi++)rbs.set(zi,0);
+            pn =2;
         }
         if (s[3]=='='&&s[2]=='=') {
-            for (int zi=16;zi<24;zi++)rbs.set(zi,0);
+            //for (int zi=16;zi<24;zi++)rbs.set(zi,0);
+            pn=1;
         }
     }
 
@@ -58,7 +58,7 @@ std::vector<BYTE> Get3for4(std::string s){
     int mui=7;
     std::bitset<8> tbs;
     int imm=0;
-    for (int ii=0; ii<24; ii++) {
+    for (int ii=0; ii<pn*8; ii++) {
         
         
         tbs[mui]=rbs[ii];
@@ -66,38 +66,25 @@ std::vector<BYTE> Get3for4(std::string s){
         mui--;
         if (mui==-1){
 ///-------------
-          //  if (!(tbs.none())) {
-               //res.push_back(char(tbs.to_ulong()));
-                //std::cout.width(8);
-                //std::cout.flush();
-               // for(int oi;oi<8;oi++)
-                //if (char(tbs.to_ulong())=='\0')
-                
-               // std::cout.put(char(tbs.to_ulong()));
-                if (res.size()!=3) {
+       
+                if (res.size()!=pn) {
                     rarr=char(tbs.to_ulong());
-                   // std::cout<<tbs<<std::endl;
-                   // std::cout<<std::hex<<char(tbs.to_ulong())<<std::endl;
-                    res.push_back(rarr);
+                     res.push_back(rarr);
                 }
-               if (res.size()==3) {
-                    for (int fi=0; fi<3; fi++) {
+               if (res.size()==pn) {
+                    for (int fi=0; fi<pn; fi++) {
                         std::cout<<res[fi];
                         
                     }
                    res.resize(0);
                     
                 }
-               // else
-                 //   std::cout<<char(tbs.to_ulong());
-                
-              //  std::ostream::write(tbs);
-                imm++;
+                   imm++;
 
          //   }
             
             mui=7;
-            //std::cout<<res;
+           
         }
       
     }
@@ -141,8 +128,8 @@ void Processdecbase64(std::istream& in){
                                 for (int qi=0;qi<3;qi++){
                          // result.push_back (tmv[qi]);//send to make dec000000000
                                     if (result.size()==3){
-                                        for (unsigned i=0; i<result.size(); ++i)
-                                            std::cout << result[i];
+                                      //  for (unsigned i=0; i<result.size(); ++i)
+                                       //     std::cout << result[i];
                                             
                                           //  result.shrink_to_fit();
                                     }
@@ -183,16 +170,6 @@ void Processdecbase64(std::istream& in){
         
   
    
-//    if (erro!=1) {
-//        for (unsigned i=0; i<result.size(); ++i)
-//            //std::cout << result[i];
-//      //  result.shrink_to_fit();
-//
-//            int iff;
-//        
-//    }
-//    else{
-//
-//    }
+
     
 }

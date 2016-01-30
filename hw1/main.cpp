@@ -81,9 +81,4 @@ static void Process(std::istream& in, int argc, char *argv[])
 		
     }
 
-//1 http://stackoverflow.com/questions/7496657/when-printing-hex-values-using-x-why-is-ffffff-printed-after-each-value
-//2 http://stackoverflow.com/questions/3381614/c-convert-string-to-hexadecimal-and-vice-versa
-//3 http://en.cppreference.com/w/cpp/io/c/fprintf
-//4 //http://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
-//5 http://stackoverflow.com/questions/4533063/how-does-ifstreams-eof-work
-//6 http://stackoverflow.com/questions/2967015/set-a-c-bitset-from-a-binary-input-steam
+
