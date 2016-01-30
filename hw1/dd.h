@@ -23,3 +23,4 @@ extern void Processencbase64(std::istream& in);
 extern void Processdecbase64(std::istream& in);
 
 #endif /* defined(__hw1__dd__) */
+

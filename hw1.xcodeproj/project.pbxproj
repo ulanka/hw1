@@ -46,6 +46,7 @@
 		994F029C1C5C6DE100509B64 /* encbase64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = encbase64.cpp; sourceTree = "<group>"; };
 		994F029E1C5C708500509B64 /* decbase64.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = decbase64.cpp; sourceTree = "<group>"; };
 		994F02A01C5C906700509B64 /* usctommy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = usctommy.gif; path = my/usctommy.gif; sourceTree = "<group>"; };
+		994F02A11C5CCAC000509B64 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		995864171C58A1CA000B8F70 /* deleteme later */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "deleteme later"; sourceTree = "<group>"; };
 		99ECBFD01C5AB8B200235BEE /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +85,7 @@
 				992D5A651C570ABB00637F53 /* Makefile */,
 				994F02991C5C608000509B64 /* hexdump.cpp */,
 				994F029E1C5C708500509B64 /* decbase64.cpp */,
+				994F02A11C5CCAC000509B64 /* README */,
 				994F029A1C5C608000509B64 /* dd.h */,
 				992D5A601C57055B00637F53 /* main.cpp */,
 				994F029C1C5C6DE100509B64 /* encbase64.cpp */,

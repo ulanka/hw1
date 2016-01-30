@@ -9,9 +9,12 @@
 #include <stdio.h>
 #include "dd.h"
 #include <vector>
+#include <ostream>
 std::vector<unsigned char> Get3for4(std::string s){
     std::vector<unsigned char> res;//resulting string to return
     std::bitset<24> rbs;//bitset for 3
+    std::ofstream str;
+    ///str.open(ios::binary);
     int ri=0;
     for (int ii=0;ii<4;ii++){
         int myc = (int)s[ii];
@@ -49,11 +52,8 @@ std::vector<unsigned char> Get3for4(std::string s){
             for (int zi=16;zi<24;zi++)rbs.set(zi,0);
         }
     }
-    //
-    //std::cout<<"rrr"<<endl;
-    //std::cout<<"rbs";
-    //for (int ti=0;ti<24;ti++)std::cout<<rbs[ti];
-    //std::cout<<"rrr"<<endl;
+
+
     int mui=7;
     std::bitset<8> tbs;
     int imm=0;
@@ -61,34 +61,29 @@ std::vector<unsigned char> Get3for4(std::string s){
         
         
         tbs[mui]=rbs[ii];
-        //std::cout<<" "<<mui<<" "<<ii<<endl;
+  
         mui--;
         if (mui==-1){
-            //std::cout<<endl;
-            //for (int ti=0;ti<8;ti++)std::cout<<tbs[7-ti];//<<char(tbs.to_ulong());
-            //std::cout<<" "<<(int)tbs.to_ulong()<<endl;
+///-------------
             if (!(tbs.none())) {
-               res.push_back(char(tbs.to_ulong()));
+               //res.push_back(char(tbs.to_ulong()));
+                //std::cout.width(8);
+                //std::cout.flush();
+               // for(int oi;oi<8;oi++)
+                if (char(tbs.to_ulong())=='\0')
+                std::cout<<char(tbs.to_ulong());
+                else
+                    std::cout<<char(tbs.to_ulong());
+                
+              //  std::ostream::write(tbs);
                 imm++;
-                //std::cout<<tbs;
-                //fwrite (tbs, 1, ArraySize, stdout);
-                //fwrite(char(tbs.to_ulong()), 1, 8, stdout);
-                //std::ofstream::binary<<char(tbs.to_ulong());
-                //std::cout<<char(tbs.to_ulong());
-               // std::cout<<"g";
+
             }
             
             mui=7;
             //std::cout<<res;
         }
-        
-        //convert here from to original
-        //std::cout<<"ii="<<ii<<" "<<s[ii]<<endl;
-        
-        //int tbsi =tbs.to_ulong();
-        //if (tbci)
-        //std::cout<<tbs.to_ulong()<<" "<<char(tbs.to_ulong())<<endl;
-        
+      
     }
     
    return res;
@@ -100,6 +95,7 @@ void Processdecbase64(std::istream& in){
     std::string s;//portion of 4
     int c4=0;//count to 4
     int iir=0;
+    //std::cerr<<"Error:Co\0rrupted inputtt";
     while (!in.eof()) {
         int c = in.get();
        // std::cout<<c<<(char)c;
@@ -126,9 +122,16 @@ void Processdecbase64(std::istream& in){
                             if (s[2]!='='&&s[3]!='=') {
                            //Get3for4(s);//send to make dec
                                 for (int qi=0;qi<3;qi++){
-                           result.push_back (tmv[qi]);//send to make dec
+                         // result.push_back (tmv[qi]);//send to make dec000000000
+                                    if (result.size()==3){
+                                        for (unsigned i=0; i<result.size(); ++i)
+                                            std::cout << result[i];
+                                          //  result.shrink_to_fit();
+                                    }
                                     iir++;
                                 }
+                            //    tmv.shrink_to_fit();
+                               
                             							}
                             						else{
                         								if (s[2]!='='&&s[3]=='='){
@@ -160,21 +163,18 @@ void Processdecbase64(std::istream& in){
         }
            }
         
-        //for (int i=0; i<64; ++i) {
-        //	std::cout<<nextline[i];
-        //}
+  
    
     if (erro!=1) {
         for (unsigned i=0; i<result.size(); ++i)
-            std::cout << result[i];
-        //std::cout<<result;
-        //if (result[result.length()-1]!='\n') {
-          //  std::cout<<std::endl;
-        //}
+            //std::cout << result[i];
+      //  result.shrink_to_fit();
+
+            int iff;
         
     }
     else{
-   //     std::exit(0);
+
     }
     
 }
