@@ -17,6 +17,7 @@
 #include <cstdio>
 #include <sstream>
 #include <bitset>
+typedef unsigned char BYTE;
 
 extern void Processhexdump(std::istream& in);
 extern void Processencbase64(std::istream& in);

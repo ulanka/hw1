@@ -10,10 +10,11 @@
 #include "dd.h"
 #include <vector>
 #include <ostream>
-std::vector<unsigned char> Get3for4(std::string s){
-    std::vector<unsigned char> res;//resulting string to return
+std::vector<BYTE> Get3for4(std::string s){
+    std::vector<BYTE> res;//resulting string to return
     std::bitset<24> rbs;//bitset for 3
-    std::ofstream str;
+    BYTE rarr;
+    //std::ofstream str;
     ///str.open(ios::binary);
     int ri=0;
     for (int ii=0;ii<4;ii++){
@@ -65,20 +66,35 @@ std::vector<unsigned char> Get3for4(std::string s){
         mui--;
         if (mui==-1){
 ///-------------
-            if (!(tbs.none())) {
+          //  if (!(tbs.none())) {
                //res.push_back(char(tbs.to_ulong()));
                 //std::cout.width(8);
                 //std::cout.flush();
                // for(int oi;oi<8;oi++)
-                if (char(tbs.to_ulong())=='\0')
-                std::cout<<char(tbs.to_ulong());
-                else
-                    std::cout<<char(tbs.to_ulong());
+                //if (char(tbs.to_ulong())=='\0')
+                
+               // std::cout.put(char(tbs.to_ulong()));
+                if (res.size()!=3) {
+                    rarr=char(tbs.to_ulong());
+                   // std::cout<<tbs<<std::endl;
+                   // std::cout<<std::hex<<char(tbs.to_ulong())<<std::endl;
+                    res.push_back(rarr);
+                }
+               if (res.size()==3) {
+                    for (int fi=0; fi<3; fi++) {
+                        std::cout<<res[fi];
+                        
+                    }
+                   res.resize(0);
+                    
+                }
+               // else
+                 //   std::cout<<char(tbs.to_ulong());
                 
               //  std::ostream::write(tbs);
                 imm++;
 
-            }
+         //   }
             
             mui=7;
             //std::cout<<res;
@@ -118,6 +134,7 @@ void Processdecbase64(std::istream& in){
                         s+=(char)c;//take first 4 chars
                         c4++;
                         if (c4==4){//form 4 chars string
+                            //std::cout<<s<<std::endl;
                            std::vector<unsigned char> tmv= Get3for4(s);
                             if (s[2]!='='&&s[3]!='=') {
                            //Get3for4(s);//send to make dec
@@ -126,6 +143,7 @@ void Processdecbase64(std::istream& in){
                                     if (result.size()==3){
                                         for (unsigned i=0; i<result.size(); ++i)
                                             std::cout << result[i];
+                                            
                                           //  result.shrink_to_fit();
                                     }
                                     iir++;
@@ -165,16 +183,16 @@ void Processdecbase64(std::istream& in){
         
   
    
-    if (erro!=1) {
-        for (unsigned i=0; i<result.size(); ++i)
-            //std::cout << result[i];
-      //  result.shrink_to_fit();
-
-            int iff;
-        
-    }
-    else{
-
-    }
+//    if (erro!=1) {
+//        for (unsigned i=0; i<result.size(); ++i)
+//            //std::cout << result[i];
+//      //  result.shrink_to_fit();
+//
+//            int iff;
+//        
+//    }
+//    else{
+//
+//    }
     
 }
