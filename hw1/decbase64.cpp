@@ -8,17 +8,15 @@
 
 #include <stdio.h>
 #include "dd.h"
-std::string Get3for4(std::string s){
-    std::string res="";//resulting string to return
+#include <vector>
+std::vector<unsigned char> Get3for4(std::string s){
+    std::vector<unsigned char> res;//resulting string to return
     std::bitset<24> rbs;//bitset for 3
     int ri=0;
     for (int ii=0;ii<4;ii++){
-        
-        
         int myc = (int)s[ii];
         //convert from base64 char to num
-        
-        if (myc>=65&&myc<=90)
+         if (myc>=65&&myc<=90)
             myc-=65;
         else
             if (myc>=97&&myc<=122)
@@ -58,7 +56,7 @@ std::string Get3for4(std::string s){
     //std::cout<<"rrr"<<endl;
     int mui=7;
     std::bitset<8> tbs;
-    
+    int imm=0;
     for (int ii=0; ii<24; ii++) {
         
         
@@ -70,7 +68,14 @@ std::string Get3for4(std::string s){
             //for (int ti=0;ti<8;ti++)std::cout<<tbs[7-ti];//<<char(tbs.to_ulong());
             //std::cout<<" "<<(int)tbs.to_ulong()<<endl;
             if (!(tbs.none())) {
-                res+= char(tbs.to_ulong());
+               res.push_back(char(tbs.to_ulong()));
+                imm++;
+                //std::cout<<tbs;
+                //fwrite (tbs, 1, ArraySize, stdout);
+                //fwrite(char(tbs.to_ulong()), 1, 8, stdout);
+                //std::ofstream::binary<<char(tbs.to_ulong());
+                //std::cout<<char(tbs.to_ulong());
+               // std::cout<<"g";
             }
             
             mui=7;
@@ -86,99 +91,86 @@ std::string Get3for4(std::string s){
         
     }
     
-    return res;
+   return res;
 }
 
 void Processdecbase64(std::istream& in){
-    std::string nextline;
-    std::string result;
+    std::vector<unsigned char> result;
     int erro=0;
+    std::string s;//portion of 4
+    int c4=0;//count to 4
+    int iir=0;
     while (!in.eof()) {
-        getline(in, nextline);
+        int c = in.get();
+       // std::cout<<c<<(char)c;
+       // getline(in, nextline);
         //std::cout<<nextline<<endl;
-        std::string s;
-        
-        if (nextline.length()==64){
-            
-            for (int i=0; i<64; ++i) {
-                
-                int c =(int)nextline[i];
-                if ((char)c=='\n') continue;
-                if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47||(char)c=='='){//if char is legal
-                    s+=nextline[i];//take first 4 chars
-                    if ((i+1)%4==0){//form 4 chars string
-                        if (s[2]!='='&&s[3]!='=') {
-                            result+=Get3for4(s);//send to make dec
-                        }
-                        else{
-                            if (s[2]!='='&&s[3]=='='){
-                                result+=Get3for4(s)[0]+Get3for4(s)[1];}
-                            else{if(s[2]=='='&&s[3]=='=')
-                                result+=Get3for4(s)[0];
-                            }
-                        }
-                        s="";
-                    }
-                }
-                else{
-                    erro=1;
-                    std::cerr<<"Error:Corrupted input"<<std::endl;
-                    break;
-                }
+        if (c==-1) {
+            if (c4!=0) {
+                std::cerr<<"Error:Corrupted inputtt"<<std::endl;
+                erro=1;
+                //break;
                 
             }
-            
+            break;
         }
-        else{
-            if (nextline.length()%4==0) {//this is for last line
-                for (int i=0; i<nextline.length(); ++i) {//not 64 chars
-                    int c =(int)nextline[i];
-                    if ((char)c=='\n') continue;
-                    //std::cout<<"c="<<nextline.length();
-                    if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||c==43||c==47||(char)c=='='){//if char is legal
-                        s+=nextline[i];//take first 4 chars
-                        if ((i+1)%4==0){//form 4 chars string
-                            //							if (s[2]!='='&&s[3]!='=') {
-                            result+=Get3for4(s);//send to make dec
-                            //							}
-                            //							else{
-                            //								if (s[2]!='='&&s[3]=='='){
-                            //									result+=Get3for4(s)[0]+Get3for4(s)[1];}
-                            //								else{
-                            //									if(s[2]=='='&&s[3]=='=')
-                            //										result+=Get3for4(s)[0];
-                            //									}
-                            //							}
+        if ((char)c!='\n') {
+            //std::cout<<(char)c;
+          //  continue;
+                //std::cout<<"c="<<nextline.length();
+                    if ((c>=65&&c<=90)||(c>=97&&c<=122)||(c>=48&&c<=57)||(c==43)||(c==47)||((char)c=='=')){//if char is legal
+                        s+=(char)c;//take first 4 chars
+                        c4++;
+                        if (c4==4){//form 4 chars string
+                           std::vector<unsigned char> tmv= Get3for4(s);
+                            if (s[2]!='='&&s[3]!='=') {
+                           //Get3for4(s);//send to make dec
+                                for (int qi=0;qi<3;qi++){
+                           result.push_back (tmv[qi]);//send to make dec
+                                    iir++;
+                                }
+                            							}
+                            						else{
+                        								if (s[2]!='='&&s[3]=='='){
+                                                            result.push_back(tmv[0]);
+                                                            iir++;
+                                                            result.push_back(tmv[1]);
+                                                            iir++;
+                                                        }
+                         								else{
+                           								if(s[2]=='='&&s[3]=='=')
+                        									result.push_back(tmv[0]);
+                                                            iir++;
+                            								}
+                          						}
                             //send to make dec
                             s="";
+                            c4=0;
                         }
+                        
+                        
                     }
                     else{
                         
                         erro=1;
                         std::cerr<<"Error:Corrupted input"<<std::endl;
+                        std::cerr<<c;
                         break;
                     }
-                    
-                }
-            }
-            else{
-                erro=1;
-                std::cerr<<"Error:Corrupted input"<<std::endl;
-                break;
-            }
-            //nextline
         }
+           }
         
         //for (int i=0; i<64; ++i) {
         //	std::cout<<nextline[i];
         //}
-    }
+   
     if (erro!=1) {
-        std::cout<<result;
-        if (result[result.length()-1]!='\n') {
-            std::cout<<std::endl;
-        }
+        for (unsigned i=0; i<result.size(); ++i)
+            std::cout << result[i];
+        //std::cout<<result;
+        //if (result[result.length()-1]!='\n') {
+          //  std::cout<<std::endl;
+        //}
         
     }
     else{

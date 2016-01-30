@@ -65,6 +65,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "tada3"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "usctommy.gif"
             isEnabled = "NO">
          </CommandLineArgument>
