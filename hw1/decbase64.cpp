@@ -174,7 +174,7 @@ void Processdecbase64(std::istream& in){
         
     }
     else{
-        std::exit(0);
+   //     std::exit(0);
     }
     
 }
